@@ -3,7 +3,7 @@ import { FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
 import { FcGoogle } from "react-icons/fc"
 import { Link } from 'react-router-dom';
 import image from "../../assets/images/login/login.svg"
-const Login = () => {
+const Register = () => {
     return (
         <div className='flex justify-between items-center space-x-8 w-4/5 mx-auto py-16'>
             <div className='w-2/5 text-left'>
@@ -11,7 +11,11 @@ const Login = () => {
             </div>
             <div className='w-3/6 flex justify-center items-center border-2 rounded-md py-12 '>
                 <form className='flex flex-col justify-center items-center w-4/5 '>
-                    <h2 className='text-4xl font-semibold my-6'>Login</h2>
+                    <h2 className='text-4xl font-semibold my-6'>Register</h2>
+                    <div className='w-full'>
+                        <label htmlFor='name' className='font-semibold'>Email</label>
+                        <input type="text" name="name" id="name" className='w-full py-2 px-3 rounded-md border-2 focus:border-transparent focus:outline-none focus:ring-2 mt-2' placeholder='Name' />
+                    </div>
                     <div className='w-full'>
                         <label htmlFor='email' className='font-semibold'>Email</label>
                         <input type="email" name="email" id="email" className='w-full py-2 px-3 rounded-md border-2 focus:border-transparent focus:outline-none focus:ring-2 mt-2' placeholder='Email' />
@@ -27,11 +31,11 @@ const Login = () => {
                         <span className='bg-[#F5F5F8]  w-10 h-10 text-xl rounded-full flex justify-center items-center  text-[#0A66C2] cursor-pointer'><FaLinkedinIn></FaLinkedinIn></span>
                         <span className='bg-[#f5f5f5] w-10 h-10 text-xl rounded-full flex justify-center items-center  cursor-pointer'><FcGoogle></FcGoogle></span>
                     </div>
-                    <p className='text-xl '>Don't have a account <Link to="/register" className='text-[#ff3811] font-semibold'>Sign Up</Link></p>
+                    <p className='text-xl '>Have a account <Link to="/login" className='text-[#ff3811] font-semibold'>Sign Up</Link></p>
                 </form>
             </div>
         </div>
     );
 };
 
-export default Login;
+export default Register;
