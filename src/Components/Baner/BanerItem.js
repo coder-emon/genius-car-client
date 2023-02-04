@@ -1,8 +1,9 @@
 import React from "react";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import "./Baner.css";
 const BanerItem = ({ slide }) => {
   const { image, id, prev, next } = slide;
-  console.log(image);
+
   return (
     <div
       id={`slide${id}`}
@@ -31,11 +32,14 @@ const BanerItem = ({ slide }) => {
         </div>
       </div>
       <div className="absolute flex justify-between transform -translate-y-1/2 space-x-3 right-5 bottom-2">
-        <a href={`#slide${prev}`} className="btn btn-circle">
-          ❮
+        <a
+          href={`#slide${prev}`}
+          className="btn btn-circle bg-[#FFFFFF] border-none"
+        >
+          <FaArrowLeft></FaArrowLeft>
         </a>
-        <a href={`#slide${next}`} className="btn btn-circle">
-          ❯
+        <a href={`#slide${next}`} className="btn btn-circle bg-[#ff3811]">
+          <FaArrowRight></FaArrowRight>
         </a>
       </div>
     </div>

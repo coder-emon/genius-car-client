@@ -49,7 +49,7 @@ const Baner = () => {
   return (
     <div>
       <div className="carousel w-4/5 mx-auto rounded  h-[550px] overflow-hidden ">
-        {bannerData.map((slide) => (
+        {bannerData?.map((slide) => (
           <BanerItem key={slide.id} slide={slide}></BanerItem>
         ))}
         {/* <BanerItem image={img1}></BanerItem> */}
