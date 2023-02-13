@@ -34,7 +34,7 @@ const BanerItem = ({ slide }) => {
       <div className="absolute flex justify-between transform -translate-y-1/2 space-x-3 right-5 bottom-2">
         <a
           href={`#slide${prev}`}
-          className="btn btn-circle bg-[#FFFFFF] border-none"
+          className="btn btn-circle bg-slate-500 border-none"
         >
           <FaArrowLeft></FaArrowLeft>
         </a>

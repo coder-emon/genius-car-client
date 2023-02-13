@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import { FaCartPlus, FaSearch } from "react-icons/fa";
+import { AuthContext } from "../../Context/Auth.Context";
 const Nav = () => {
+  const { user, logout } = useContext(AuthContext)
   const menuItems = (
     <>
       <li>
-        <Link to="/home"> Home</Link>
+        <Link to="/"> Home</Link>
       </li>
       <li>
         <Link to="/"> About</Link>
@@ -63,12 +65,16 @@ const Nav = () => {
           <FaSearch></FaSearch>
           <FaCartPlus></FaCartPlus>
         </span>
-        <Link
-          to="/"
-          className=" border-2 border-[#FF3811]  text-[#FF3811] py-2 px-5 rounded ml-6"
-        >
-          Appointment
-        </Link>
+        {
+          user?.uid ? <button className="border-2 border-[#FF3811]  text-[#FF3811] py-2 px-5 rounded ml-6" onClick={logout}>Logout</button>
+            :
+            <Link
+              to="/login"
+              className=" border-2 border-[#FF3811]  text-[#FF3811] py-2 px-5 rounded ml-6"
+            >
+              Login
+            </Link>
+        }
       </div>
     </div>
   );
