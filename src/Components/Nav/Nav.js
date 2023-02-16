@@ -22,6 +22,11 @@ const Nav = () => {
       <li>
         <Link to="/"> Contact</Link>
       </li>
+      {user?.uid &&
+        <li>
+          <Link to="/orders"> Orders</Link>
+        </li>
+      }
     </>
   );
   return (
@@ -50,6 +55,7 @@ const Nav = () => {
           >
             {menuItems}
           </ul>
+
         </div>
         <Link to="/">
           <img src={logo} alt="" className="h-16" />
@@ -59,6 +65,7 @@ const Nav = () => {
         <ul className="menu menu-horizontal px-1 text-xl font-semibold text-black">
           {menuItems}
         </ul>
+        <p className="text-3xl ml-7 font-bold">{user?.displayName}</p>
       </div>
       <div className="navbar-end">
         <span className="flex justify-between items-center w-14 text-black text-xl">

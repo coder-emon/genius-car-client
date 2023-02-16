@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { toast } from 'react-hot-toast';
 import { FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
 import { FcGoogle } from "react-icons/fc"
 import { Link } from 'react-router-dom';
@@ -33,11 +34,13 @@ const Register = () => {
                     })
                 setUser((user))
                 console.log(user)
+                toast.success(`${user.displayName} User Created Successfully`)
                 setLoading(false)
                 form.reset()
             })
             .catch((err) => {
                 console.log(err)
+                toast.error(err.message)
             })
     }
     return (
@@ -60,7 +63,7 @@ const Register = () => {
                         <label htmlFor='password' className='font-semibold'>Password</label>
                         <input type="password" name="password" id="password" className='w-full py-2 px-3 rounded-md border-2 focus:border-transparent focus:outline-none focus:ring-2 mt-2' placeholder='Password' />
                     </div>
-                    <button className='bg-[#ff3811] text-white w-full rounded-md py-2 mt-5' >Sign In</button>
+                    <button className='bg-[#ff3811] text-white w-full rounded-md py-2 mt-5' >Sign Up</button>
                     <h4 className='my-4 text-sm font-semibold'>Or Sign In With</h4>
                     <div className='flex justify-center items-center space-x-3 mb-6 '>
                         <span className='bg-[#F5F5F8] w-10 h-10 text-xl rounded-full flex justify-center items-center text-[#3B5998] cursor-pointer'><FaFacebookF></FaFacebookF></span>

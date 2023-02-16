@@ -6,8 +6,8 @@ const PrivateRoute = ({ children }) => {
     const { user, loading } = useContext(AuthContext)
     const location = useLocation()
     if (loading) return <h2 className='text-5xl'>Loding...</h2>
-    if (user.uid) return children
-    return <Navigate to="/login" from={location} replace></Navigate>
+    if (user?.uid) return children
+    return <Navigate to="/login" state={{ from: location }} replace></Navigate>
 };
 
 export default PrivateRoute;

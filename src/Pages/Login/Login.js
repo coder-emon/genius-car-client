@@ -1,17 +1,22 @@
 import React, { useContext } from 'react';
+import { toast } from 'react-hot-toast';
 import { FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
 import { FcGoogle } from "react-icons/fc"
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import image from "../../assets/images/login/login.svg"
 import { AuthContext } from '../../Context/Auth.Context';
 const Login = () => {
     const { setUser, googleSignIn, setLoading, login } = useContext(AuthContext)
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/"
     const handleGoogleSignIn = () => {
         googleSignIn()
             .then((result => {
                 const user = result.user
                 setUser(user)
                 console.log(user)
+                navigate(from, { replace: true })
                 setLoading(false)
             })).catch((error) => { console.log(error.message); })
     }
@@ -26,10 +31,13 @@ const Login = () => {
                 setUser((user))
                 console.log(user)
                 setLoading(false)
+                toast.success(`${user.displayName} Login successful`)
+                navigate(from, { replace: true })
                 form.reset()
             })
             .catch((err) => {
                 console.log(err)
+                toast.error(err.message)
             })
     }
     return (
