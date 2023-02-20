@@ -22,6 +22,7 @@ const AuthProvider = ({ children }) => {
         return signInWithEmailAndPassword(auth, emai, password)
     }
     const logout = () => {
+        localStorage.removeItem("genius-secret")
         return signOut(auth)
     }
     const updateUser = (name) => {

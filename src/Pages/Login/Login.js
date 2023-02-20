@@ -15,9 +15,28 @@ const Login = () => {
             .then((result => {
                 const user = result.user
                 setUser(user)
-                console.log(user)
-                navigate(from, { replace: true })
                 setLoading(false)
+                console.log(user)
+                const userMail = {
+                    email: user.email
+                }
+                fetch("http://localhost:5000/jwt", {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json",
+                    },
+                    body: JSON.stringify(userMail)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data)
+                        if (data?.success) {
+                            toast.success(data.message)
+                            localStorage.setItem('genius-secret', data.data)
+                        }
+                    })
+                navigate(from, { replace: true })
+
             })).catch((error) => { console.log(error.message); })
     }
     const handleSignIn = (e) => {
@@ -32,11 +51,30 @@ const Login = () => {
                 console.log(user)
                 setLoading(false)
                 toast.success(`${user.displayName} Login successful`)
+                const userMail = {
+                    email: user.email,
+                }
+                fetch("http://localhost:5000/jwt", {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json",
+                    },
+                    body: JSON.stringify(userMail)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data)
+                        if (data?.success) {
+                            toast.success(data.message)
+                            localStorage.setItem('genius-secret', data.data)
+                        }
+                    })
                 navigate(from, { replace: true })
+
                 form.reset()
             })
             .catch((err) => {
-                console.log(err)
+                console.error(err)
                 toast.error(err.message)
             })
     }

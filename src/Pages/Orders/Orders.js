@@ -7,9 +7,14 @@ const Orders = () => {
     const [orders, setOrders] = useState([])
     const { user } = useContext(AuthContext)
     const [refresh, setRefresh] = useState(true)
+    const [aproveStatus, setAProveStatus] = useState(false)
     useEffect(() => {
         if (user.email == "admin@gmail.com") {
-            fetch("http://localhost:5000/orders")
+            fetch("http://localhost:5000/orders", {
+                headers: {
+                    authorization: localStorage.getItem('genius-secret')
+                }
+            })
                 .then(res => res.json())
                 .then(data => {
                     console.log(data)
@@ -18,7 +23,11 @@ const Orders = () => {
                 })
                 .catch(err => console.error(err))
         } else {
-            fetch(`http://localhost:5000/orders?email=${user.email}`)
+            fetch(`http://localhost:5000/orders?email=${user?.email}`, {
+                headers: {
+                    authorization: localStorage.getItem('genius-secret')
+                }
+            })
                 .then(res => res.json())
                 .then(data => {
                     console.log(data)
@@ -27,20 +36,25 @@ const Orders = () => {
                 })
                 .catch(err => console.error(err))
         }
-    }, [refresh, user.email])
+    }, [refresh, user?.email])
     const handleAproved = (id) => {
+        setAProveStatus(!aproveStatus)
         fetch(`http://localhost:5000/orders/${id}`, {
             method: "PATCH",
             headers: {
                 "content-type": "application/json",
             },
-            body: JSON.stringify({ status: true })
+            body: JSON.stringify({ status: aproveStatus })
         })
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
                     console.log(data)
-                    toast.success(data.message)
+                    if (aproveStatus) {
+                        toast.success(data.message)
+                    } else {
+                        toast.success("Order status set to pending")
+                    }
                     setRefresh(true)
                 }
             })
@@ -83,7 +97,7 @@ const Orders = () => {
                         <p className='text-xl '>${order.price}</p>
                         <p className='text-xl'>{order.email}</p>
                         <p className='text-xl'>{order.customer_name}</p>
-                        <button className=' ' onClick={() => handleAproved(order._id)}>{order?.status ? <span className='bg-transparent border-[#29B170] border-2 px-3 py-1 text-[#29B170] rounded'>Aproved</span> : <span className='bg-[#ff3811]  px-3 py-1 text-white rounded'>Pending</span>}</button>
+                        <button className=' ' onClick={() => handleAproved(order._id)}>{order?.status ? <span className='bg-transparent border-[#29B170] border-2  py-1 w-24 inline-block text-[#29B170] rounded'>Aproved</span> : <span className='bg-[#ff3811] border-2 border-[#ff3811]   py-1 w-24 inline-block text-white rounded'>Pending</span>}</button>
                     </div>)
                 }
             </div>
